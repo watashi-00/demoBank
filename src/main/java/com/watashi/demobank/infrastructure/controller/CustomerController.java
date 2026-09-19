@@ -2,7 +2,6 @@ package com.watashi.demobank.infrastructure.controller;
 
 import com.watashi.demobank.application.services.CustomerService;
 import com.watashi.demobank.domain.entities.Customer;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -11,23 +11,30 @@ import java.util.Optional;
 @Repository
 @Profile("jpa")
 public class JpaCustomerRepository implements CustomerRepository {
+
+    private final SpringDataCustomerRepository springDataCustomerRepository;
+
+    public JpaCustomerRepository(SpringDataCustomerRepository springDataCustomerRepository) {
+        this.springDataCustomerRepository = springDataCustomerRepository;
+    }
+
     @Override
     public Optional<Customer> findById(Long id) {
-        return Optional.empty();
+        return springDataCustomerRepository.findById(id);
     }
 
     @Override
     public List<Customer> findAll() {
-        return List.of();
+        return springDataCustomerRepository.findAll();
     }
 
     @Override
     public Customer save(Customer customer) {
-        return null;
+        return springDataCustomerRepository.save(customer);
     }
 
     @Override
     public void deleteById(Long id) {
-
+        springDataCustomerRepository.deleteById(id);
     }
 }
