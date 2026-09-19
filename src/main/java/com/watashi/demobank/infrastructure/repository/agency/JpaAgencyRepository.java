@@ -29,8 +29,8 @@ public class JpaAgencyRepository implements AgencyRepository {
     }
 
     @Override
-    public Agency save(Agency Agency) {
-        return springDataAgencyRepository.save(Agency);
+    public Agency save(Agency agency) {
+        return springDataAgencyRepository.save(agency);
     }
 
     @Override
