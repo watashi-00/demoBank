@@ -1,20 +1,41 @@
 package com.watashi.demobank.domain.entities;
 
 import com.watashi.demobank.domain.enums.TransactionType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.Instant;
 
+@Entity
+@Table(name = "transactions")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Transaction {
-    long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    long    fromAccountId;
-    long    toAccountId;
+    @Enumerated(EnumType.STRING)
+    private TransactionType type;
 
-    TransactionType type;
-    BigDecimal      amount;
-    String          notes;
+    private BigDecimal amount;
 
-    Instant createdAt;
-    Instant updatedAt;
+    private Long fromAccountId;
+    private Long toAccountId;
+
+    private String notes;
+
+    private Instant createdAt;
 }
