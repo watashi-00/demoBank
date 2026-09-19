@@ -10,5 +10,4 @@ public interface CustomerRepository {
     List<Customer>      findAll();
     Customer            save(Customer customer);
     void                deleteById(Long id);
-
 }
