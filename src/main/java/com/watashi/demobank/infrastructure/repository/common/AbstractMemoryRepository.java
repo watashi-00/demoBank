@@ -1,7 +1,5 @@
 package com.watashi.demobank.infrastructure.repository.common;
 
-import org.springframework.cglib.core.internal.Function;
-
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,11 +7,12 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.BiConsumer;
+import java.util.function.Function;
 
 public abstract class AbstractMemoryRepository<T> {
 
     protected final List<T> items = new ArrayList<>();
-    protected final AtomicLong idSequence = new AtomicLong();
+    protected final AtomicLong idSequence = new AtomicLong(1);
 
     private final Function<T, Long> getId;
     private final BiConsumer<T, Long> setId;
