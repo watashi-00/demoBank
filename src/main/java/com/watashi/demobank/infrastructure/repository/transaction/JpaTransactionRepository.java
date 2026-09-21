@@ -29,6 +29,11 @@ public class JpaTransactionRepository implements TransactionRepository {
     }
 
     @Override
+    public List<Transaction> findByAccountId(Long accountId) {
+        return springDataTransactionRepository.findByFromAccountIdOrToAccountId(accountId, accountId);
+    }
+
+    @Override
     public Transaction save(Transaction transaction) {
         return springDataTransactionRepository.save(transaction);
     }

@@ -3,12 +3,12 @@ package com.watashi.demobank.application.services;
 import com.watashi.demobank.domain.entities.Customer;
 import com.watashi.demobank.domain.repositories.CustomerRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
-public class CustomerService implements CustomerRepository {
+public class CustomerService {
 
     private final CustomerRepository repository;
 
@@ -16,23 +16,26 @@ public class CustomerService implements CustomerRepository {
         this.repository = customerRepository;
     }
 
-    @Override
-    public Optional<Customer> findById(Long id) {
-        return repository.findById(id);
+    @Transactional(readOnly = true)
+    public Customer findById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Customer not found with id: " + id));
     }
 
-    @Override
+    @Transactional(readOnly = true)
     public List<Customer> findAll() {
         return repository.findAll();
     }
 
-    @Override
-    public Customer save(Customer customer) {
+    @Transactional
+    public Customer createCustomer(String cpf) {
+        Customer customer = new Customer(cpf);
         return repository.save(customer);
     }
 
-    @Override
+    @Transactional
     public void deleteById(Long id) {
+        findById(id);
         repository.deleteById(id);
     }
 }

@@ -38,4 +38,37 @@ public class Transaction {
     private String notes;
 
     private Instant createdAt;
+
+    public Transaction(TransactionType type, BigDecimal amount, Long fromAccountId, Long toAccountId, String notes) {
+        this.type = type;
+        this.amount = amount;
+        this.fromAccountId = fromAccountId;
+        this.toAccountId = toAccountId;
+        this.notes = notes;
+        this.createdAt = Instant.now();
+        validate();
+    }
+
+    public void validate() {
+        if (this.type == null) {
+            throw new IllegalArgumentException("Transaction type cannot be null");
+        }
+        if (this.amount == null || this.amount.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException("Transaction amount must be greater than zero");
+        }
+        if (this.type == TransactionType.DEPOSIT && this.toAccountId == null) {
+            throw new IllegalArgumentException("Target account (toAccountId) is required for deposit");
+        }
+        if (this.type == TransactionType.WITHDRAW && this.fromAccountId == null) {
+            throw new IllegalArgumentException("Source account (fromAccountId) is required for withdrawal");
+        }
+        if (this.type == TransactionType.TRANSFER) {
+            if (this.fromAccountId == null || this.toAccountId == null) {
+                throw new IllegalArgumentException("Both source and target accounts are required for transfer");
+            }
+            if (this.fromAccountId.equals(this.toAccountId)) {
+                throw new IllegalArgumentException("Source and target accounts must be different for transfer");
+            }
+        }
+    }
 }

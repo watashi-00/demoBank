@@ -32,4 +32,15 @@ public class Customer {
 
     private Instant createdAt;
     private Instant updatedAt;
+
+    public Customer(String cpf) {
+        this.cpf = cpf;
+        validate();
+    }
+
+    public void validate() {
+        if (this.cpf == null || this.cpf.isBlank()) {
+            throw new IllegalArgumentException("CPF cannot be null or empty");
+        }
+    }
 }
