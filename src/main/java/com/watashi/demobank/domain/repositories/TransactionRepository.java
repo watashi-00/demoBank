@@ -8,6 +8,7 @@ import java.util.Optional;
 public interface TransactionRepository {
     Optional<Transaction>   findById(Long id);
     List<Transaction>       findAll();
+    List<Transaction>       findByAccountId(Long accountId);
     Transaction             save(Transaction transaction);
     void                    deleteById(Long id);
 }
