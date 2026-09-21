@@ -29,4 +29,20 @@ public class Agency {
 
     private Instant createdAt;
     private Instant updatedAt;
+
+    public Agency(Long bankId, String code) {
+        this.bankId = bankId;
+        this.code = code;
+        this.createdAt = Instant.now();
+        validate();
+    }
+
+    public void validate() {
+        if (this.bankId == null) {
+            throw new IllegalArgumentException("Bank ID cannot be null");
+        }
+        if (this.code == null || this.code.isBlank()) {
+            throw new IllegalArgumentException("Agency code cannot be null or empty");
+        }
+    }
 }
